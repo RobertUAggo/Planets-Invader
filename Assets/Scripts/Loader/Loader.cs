@@ -21,9 +21,13 @@ public static class Loader
         }
         else
         {
-            SceneManager.LoadSceneAsync(LevelPrefix + SLS.Data.Level.Value, LoadSceneMode.Additive);
+            //SceneManager.LoadSceneAsync(LevelPrefix + SLS.Data.Level.Value, LoadSceneMode.Additive);
+            SceneManager.LoadSceneAsync(OtherScene.Menu.ToString(), LoadSceneMode.Additive);
         }
+#else
+        SceneManager.LoadSceneAsync(OtherScene.Menu.ToString(), LoadSceneMode.Additive);
 #endif
+
         //LoadScene(SLS.Data.Level.Value);
     }
     private static void SceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
@@ -33,21 +37,19 @@ public static class Loader
     }
     public static void LoadLevel(int level)
     {
+        MainScript.Instance.MainUI.Joystick.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         SceneManager.LoadSceneAsync(LevelPrefix + level, LoadSceneMode.Additive);
-        //SLS.Data.Level.Value = level;
+        SLS.Data.Level.Value = level;
     }
     public static void LoadOtherScene(OtherScene otherScene)
     {
+        MainScript.Instance.MainUI.Joystick.gameObject.SetActive(false);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
         SceneManager.LoadSceneAsync(otherScene.ToString(), LoadSceneMode.Additive);
     }
-    public static void LoadCurrentLevel()
+    /*public static void LoadCurrentLevel()
     {
-        if (SLS.Data.Level.Value > MainScript.Instance.LevelCount)
-        {
-            SLS.Data.Level.Value = 1;
-        }
         LoadLevel(SLS.Data.Level.Value);
-    }
+    }*/
 }

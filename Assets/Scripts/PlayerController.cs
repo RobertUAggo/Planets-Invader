@@ -7,12 +7,13 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        GameScript.Instance.CameraScript.SetTartget(transform);
     }
     void FixedUpdate()
     {
-        Vector3 input = new Vector3(Input.GetAxisRaw("Vertical"), 0, -Input.GetAxisRaw("Horizontal")).normalized;
-        
-        rb.AddTorque(input * speed, ForceMode.Acceleration);
+        Vector3 otherIinput = new Vector3(Input.GetAxisRaw("Vertical"), 0, -Input.GetAxisRaw("Horizontal"));
+        Vector3 joystickInput = new Vector3(MainScript.Instance.MainUI.Joystick.Direction.y, 0, -MainScript.Instance.MainUI.Joystick.Direction.x);
+        rb.AddTorque((otherIinput+joystickInput).normalized * speed, ForceMode.Acceleration);
         //rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")) * speed;
     }
     private void OnCollisionEnter(Collision collision)

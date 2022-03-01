@@ -6,7 +6,7 @@ public class Planet : MonoBehaviour
 {
     [SerializeField] public Camera fakeCamera;
     public void Awake()
-    { 
+    {
 
     }
 }

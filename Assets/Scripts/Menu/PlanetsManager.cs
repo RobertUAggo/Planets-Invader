@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlanetsManager : MonoBehaviour
 {
-    public int CurrentPlanet = 0;
+    public int CurrentPlanet;
     public Planet[] Planets;
     private void Awake()
     {
@@ -13,28 +13,33 @@ public class PlanetsManager : MonoBehaviour
     private void Start()
     {
         //MenuScript.Instance.MenuCamera.TargetCamera = Planets[0].fakeCamera;
-        SetPlanet(CurrentPlanet);
+        CurrentPlanet = SLS.Data.Level.Value - 1;
+        MenuScript.Instance.MenuCamera.FastSet(MenuScript.Instance.PlanetsManager.Planets[CurrentPlanet].fakeCamera);
+        MenuScript.Instance.PlanetPanel.SetPlanetOnPanel(CurrentPlanet);
     }
     public void SetPlanet(int planet)
     {
-        MenuScript.Instance.MenuCamera.TargetCamera = MenuScript.Instance.PlanetsManager.Planets[planet].fakeCamera;
-        MenuScript.Instance.PlanetPanel.SetPlanetOnPanel(planet);
+        CurrentPlanet = planet;
+        MenuScript.Instance.MenuCamera.SetTargetCamera(MenuScript.Instance.PlanetsManager.Planets[CurrentPlanet].fakeCamera);
+        MenuScript.Instance.PlanetPanel.SetPlanetOnPanel(CurrentPlanet);
     }
     public void NextPlanet()
     {
         if (CurrentPlanet + 1 < Planets.Length)
         {
-            CurrentPlanet++;
-            SetPlanet(CurrentPlanet);
+            SetPlanet(CurrentPlanet + 1);
         }
     }
     public void PrevPlanet()
     {
         if (CurrentPlanet - 1 >= 0)
         {
-            CurrentPlanet--;
-            SetPlanet(CurrentPlanet);
+            SetPlanet(CurrentPlanet - 1);
         }
+    }
+    public void LoadCurrentPlanetLevel()
+    {
+        Loader.LoadLevel(CurrentPlanet+1);
     }
 #if UNITY_EDITOR
     private void Update()

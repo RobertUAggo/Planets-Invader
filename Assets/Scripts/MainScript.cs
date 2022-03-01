@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class MainScript : MonoBehaviour
 {
-    [SerializeField] public int LevelCount = 2;
+    [SerializeField] public MainUI MainUI;
+    [SerializeField] public PlanetScrObj[] PlanetsData;
     //
     [HideInInspector] public static MainScript Instance;
     private void Awake()
@@ -15,7 +16,11 @@ public class MainScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             SLS.Data.Level.Value++;
-            Loader.LoadCurrentLevel();
+            if (SLS.Data.Level.Value > PlanetsData.Length)
+            {
+                SLS.Data.Level.Value = 1;
+            }
+            Loader.LoadLevel(SLS.Data.Level.Value);
         }
     }
     private void Start()

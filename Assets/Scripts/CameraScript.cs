@@ -2,13 +2,9 @@ using UnityEngine;
 
 public class CameraScript : MonoBehaviour
 {
-    [SerializeField] private Transform target;
     [SerializeField] private float speed = 2;
     private Vector3 offset;
-    private void Start()
-    {
-        offset = transform.position - target.position;
-    }
+    private Transform target;
     private void LateUpdate()
     {
         transform.position = Vector3.Lerp(transform.position, target.position + offset, Time.deltaTime * speed);
@@ -16,5 +12,10 @@ public class CameraScript : MonoBehaviour
     public void UpOffset(float dist)
     {
         offset -= transform.forward * dist;
+    }
+    public void SetTartget(Transform target)
+    {
+        this.target = target;
+        offset = transform.position - target.position;
     }
 }
