@@ -34,19 +34,22 @@ public static class Loader
     {
         Debug.Log("SceneLoaded: " + scene.name);
         SceneManager.SetActiveScene(scene);
+        LoadScreenUI.Instance.Hide();
     }
     public static void LoadLevel(int level)
     {
-        MainScript.Instance.MainUI.Joystick.gameObject.SetActive(true);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        SceneManager.LoadSceneAsync(LevelPrefix + level, LoadSceneMode.Additive);
+        LoadScreenUI.Instance.StartShow(
+            () => SceneManager.LoadSceneAsync(LevelPrefix + level, LoadSceneMode.Additive)
+        );
         SLS.Data.Level.Value = level;
     }
     public static void LoadOtherScene(OtherScene otherScene)
     {
-        MainScript.Instance.MainUI.Joystick.gameObject.SetActive(false);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene());
-        SceneManager.LoadSceneAsync(otherScene.ToString(), LoadSceneMode.Additive);
+        LoadScreenUI.Instance.StartShow(
+            () => SceneManager.LoadSceneAsync(otherScene.ToString(), LoadSceneMode.Additive)
+        );
     }
     /*public static void LoadCurrentLevel()
     {

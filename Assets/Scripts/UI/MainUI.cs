@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class MainUI : MonoBehaviour
 {
-    public Joystick Joystick;
+    public static MainUI Instance;
+    MainUI()
+    {
+        Instance = this;
+    }
     public void ExitClick()
     { 
         if(MenuScript.Instance != null)
         {
-            Debug.Log("Quit");
+            //Debug.Log("Quit");
             Application.Quit();
         }
         else
         {
-            Debug.Log("LoadMenu");
+            //Debug.Log("LoadMenu");
             Loader.LoadOtherScene(OtherScene.Menu);
         }
     }

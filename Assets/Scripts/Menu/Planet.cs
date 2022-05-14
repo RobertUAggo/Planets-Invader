@@ -5,8 +5,13 @@ using UnityEngine;
 public class Planet : MonoBehaviour
 {
     [SerializeField] public Camera fakeCamera;
-    public void Awake()
+    [SerializeField] public PlanetData Data;
+    public void SetData(PlanetData newData)
     {
-
+        Data = newData;
+    }
+    public void LoadLevel()
+    {
+        Loader.LoadLevel(Data.LevelNumber);
     }
 }

@@ -9,7 +9,7 @@ public class PlanetPanel : MonoBehaviour
 
     public void SetPlanetOnPanel(int planet)
     {
-        PlanetName.text = MainScript.Instance.PlanetsData[planet].Name;
+        PlanetName.text = MainScript.Instance.AllPlanetsData[planet].Name;
     }
 
 }

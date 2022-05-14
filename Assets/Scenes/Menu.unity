@@ -877,7 +877,6 @@ MonoBehaviour:
   zoomDistScale: 100
   maxSpeed: 10
   moveSpeed: 0.5
-  TargetCamera: {fileID: 0}
 --- !u!4 &1092238251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5667418505766365796, guid: 27a683f31eb2205419b2c8d6133648d3,

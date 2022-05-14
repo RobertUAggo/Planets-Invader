@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class MainScript : MonoBehaviour
 {
-    [SerializeField] public MainUI MainUI;
-    [SerializeField] public PlanetScrObj[] PlanetsData;
+    [SerializeField] public AllPlanetsData AllPlanetsData;
     //
     [HideInInspector] public static MainScript Instance;
     private void Awake()
@@ -16,7 +15,7 @@ public class MainScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             SLS.Data.Level.Value++;
-            if (SLS.Data.Level.Value > PlanetsData.Length)
+            if (SLS.Data.Level.Value > AllPlanetsData.Length)
             {
                 SLS.Data.Level.Value = 1;
             }

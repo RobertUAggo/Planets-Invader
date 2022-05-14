@@ -24,14 +24,13 @@ public class MenuCamera : MonoBehaviour
         transform.position = Vector3.SmoothDamp(transform.position, targetCamera.transform.position, ref velocity, moveSpeed, maxSpeed);
         curCamera.fieldOfView = Mathf.Lerp(curCamera.fieldOfView, Mathf.Clamp(targetCamera.fieldOfView + Vector3.Distance(transform.position, targetCamera.transform.position) * zoomDistScale, targetCamera.fieldOfView, maxZoom), Time.deltaTime * zoomSpeed);
     }
-    public void SetTargetCamera(Camera targetCamera)
+    public void SetTargetCamera(Camera targetCamera, bool instant=false)
     {
         this.targetCamera = targetCamera;
-    }
-    public void FastSet(Camera targetCamera)
-    {
-        this.targetCamera = targetCamera;
-        transform.position = targetCamera.transform.position;
-        curCamera.fieldOfView = maxZoom;
+        if(instant)
+        {
+            transform.position = targetCamera.transform.position;
+            curCamera.fieldOfView = maxZoom;
+        }
     }
 }

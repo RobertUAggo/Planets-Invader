@@ -8,6 +8,5 @@ public class GameScript : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        MainScript.Instance.MainUI.Joystick.gameObject.SetActive(true);
     }
 }

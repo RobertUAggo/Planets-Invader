@@ -9,19 +9,22 @@ public class PlanetsManager : MonoBehaviour
     private void Awake()
     {
         Planets = GetComponentsInChildren<Planet>();
+        for (int i = 0; i < Planets.Length; i++)
+        {
+            Planets[i].SetData(MainScript.Instance.AllPlanetsData[i]);
+        }
     }
     private void Start()
     {
         //MenuScript.Instance.MenuCamera.TargetCamera = Planets[0].fakeCamera;
-        CurrentPlanet = SLS.Data.Level.Value - 1;
-        MenuScript.Instance.MenuCamera.FastSet(MenuScript.Instance.PlanetsManager.Planets[CurrentPlanet].fakeCamera);
-        MenuScript.Instance.PlanetPanel.SetPlanetOnPanel(CurrentPlanet);
+        SetPlanet(SLS.Data.Level.Value - 1, true);
     }
-    public void SetPlanet(int planet)
+    public void SetPlanet(int planet, bool instant=false)
     {
         CurrentPlanet = planet;
-        MenuScript.Instance.MenuCamera.SetTargetCamera(MenuScript.Instance.PlanetsManager.Planets[CurrentPlanet].fakeCamera);
+        MenuScript.Instance.MenuCamera.SetTargetCamera(Planets[CurrentPlanet].fakeCamera, instant);
         MenuScript.Instance.PlanetPanel.SetPlanetOnPanel(CurrentPlanet);
+        LoadScreenUI.Instance.SetBarSprite(Planets[CurrentPlanet].Data.Sprite);
     }
     public void NextPlanet()
     {
@@ -39,23 +42,6 @@ public class PlanetsManager : MonoBehaviour
     }
     public void LoadCurrentPlanetLevel()
     {
-        Loader.LoadLevel(CurrentPlanet+1);
+        Planets[CurrentPlanet].LoadLevel();
     }
-#if UNITY_EDITOR
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SetPlanet(0);
-        }
-        else if (Input.GetKeyDown(KeyCode.W))
-        {
-            SetPlanet(1);
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            SetPlanet(2);
-        }
-    }
-#endif
 }
